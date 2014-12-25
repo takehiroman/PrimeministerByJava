@@ -1,30 +1,55 @@
 package primeministers;
 
 import java.io.File;
+import java.util.ArrayList;
 /**
  * リーダ：総理大臣の情報を記したCSVファイルを読み込んでテーブルに仕立て上げる。
  */
-public class Reader extends IO
-{
+public class Reader extends IO{
 	/**
-	 * ここを作成してください。
-	 * まず、次のページを参照しながら、スケルトン（スタブ）を作ることから始めましょう。
-	 * http://www.cc.kyoto-su.ac.jp/~atsushi/Programs/CSV2HTML/PrimeMinistersJavaDoc/index.html
+	 * 総理大臣の情報を記したCSVファイルを記憶するフィールド。
 	 */
-	/*
-	//総理大臣の情報を記したCSVファイルを記憶するフィールド。
 	private File filename;
-	//リーダのコンストラクタ。
-	public Reader(){
+	/**
+	 * リーダのコンストラクタ。
+	 */
+	Reader(){
+		this.filename = filename();
 	}
-	//ダウンロードしたCSVファイルのローカルなファイルを応答するクラスメソッド。
+	/**
+	 * ダウンロードしたCSVファイルのローカルなファイルを応答するクラスメソッド。
+	 * @return
+	 */
 	public static File filenameOfCSV(){
+		File aFile = new File(directoryOfPages(),"/PrimeMinisters.csv");
+		
+		return aFile;
 	}
-	//ダウンロードしたCSVファイルを応答する。
+	/**
+	 * ダウンロードしたCSVファイルを応答する。
+	 * @return this.filename
+	 */
 	public File filename(){
+		
+		return filenameOfCSV();
 	}
-	//ダウンロードしたCSVファイルを読み込んでテーブルを応答する。
+	/**
+	 * ダウンロードしたCSVファイルを読み込んでテーブルを応答する。
+	 */
 	public Table table(){
+		Table aTable = new Table("input");
+		ArrayList<String> aList = readTextFromFile(filename);
+		Attributes a = new Attributes("input");
+		
+		for(String s : aList){
+			ArrayList<String> column = splitString(s,",");
+			Tuple aTuple = new Tuple(a,column);
+			aTable.add(aTuple);
+		}
+		
+		return aTable;
+		
 	}
-	*/
+	
 }
+

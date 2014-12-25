@@ -1,6 +1,8 @@
 package primeministers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+
 
 /**
  * 属性群：総理大臣の情報テーブルを入出力する際の属性情報を記憶。
@@ -8,149 +10,212 @@ import java.util.ArrayList;
 public class Attributes extends Object
 {
 	/**
-	 * ここを作成してください。
-	 * まず、次のページを参照しながら、スケルトン（スタブ）を作ることから始めましょう。
-	 * http://www.cc.kyoto-su.ac.jp/~atsushi/Programs/CSV2HTML/PrimeMinistersJavaDoc/index.html
+	 * 属性リストのキー群を記憶するフィールド。
 	 */
-	//属性リストのキー群を記憶するフィールド。
 	private ArrayList<String> keys;
-	//属性リストの名前群を記憶するフィールド。
+	/**
+	 * 属性リストの名前群を記憶するフィールド。
+	 */
 	private ArrayList<String> names;
-	//入力用("input")または出力用("output")で属性リストを作成するコンストラクタ。
-	public Attributes(String aString){
-		keys = new ArrayList<String>();
-		names = new ArrayList<String>();
 
-
-		if(aString == "input")
-		{
-		String[] aCollection = new String[]
-			{
-				"No", "Order", "Names", "Kana", "Period","School",
-				"Party", "Birth", "Image", "Thumbnail"
-			};
-			for(String key : aCollection){
-				keys.add(key);
-			}
-
-		}
-		else{
-		String[] aCollection = new String[]
-			{
-				"No", "Order", "Names", "Kana", "Period","PeriodDays", "School",
-				"Party","Place","Image"
-			};
-			for(String key : aCollection){
-				keys.add(key);
-			}
-		}
-	}
-	//指定されたインデックスに対応する名前を応答する。名前が無いときはキーを応答する。
-	protected String at(int index){
-		String name = nameAt(index);
+	/**
+	 * 入力用("input")または出力用("output")で属性リストを作成するコンストラクタ。
+	 * @param aString
+	 */
+	Attributes(String aString){
 		
-		if(name == null){
-			String key = keyAt(index);
-			return key;
+		String[] string_keys = null;
+		String[] string_names = null;
+		
+		if(aString.equals("output")){
+			string_keys = new String[]{"id","no","name","ruby","util","period","school","party","country","img","thum","link"};
+			string_names = new String[]{"人目","代","氏名","ふりがな","在位期間","在位日数","出身校","政党","出身地","画像"};
+		}else{
+			string_names = new String[]{"人目","代","氏名","ふりがな","在位期間","出身校","政党","出身地","画像","縮小画像"};
+			string_keys = new String[]{"id","no","name","ruby","util","school","party","country","img","thum"};
 		}
-				
-		return name;
+		
+		keys = (ArrayList<String>)Arrays.asList(string_keys);
+		names = (ArrayList<String>)Arrays.asList(string_names);
+		
 	}
-	//指定されたキー文字列のインデックスを応答する。
+	
+	/**
+	 * 指定されたインデックスに対応する名前を応答する。名前が無いときはキーを応答する。
+	 * @param index
+	 * @return　keys or names
+	 */
+	protected String at(int index){
+		if(keys.get(index) == null){
+			return keys.get(index);
+		}else{
+			return names.get(index);
+		}
+	}
+	/**
+	 * 指定されたキー文字列のインデックスを応答する。
+	 * @param aString
+	 * @return index
+	 */
 	private int indexOf(String aString){
-		int s = keys.indexOf(aString);
-		return s;	
+		return keys.indexOf(aString);
+		
 	}
-	//在位日数のインデックスを応答する。
+	/**
+	 * 在位日数のインデックスを応答する。
+	 * @return index
+	 */
 	public int indexOfDays(){
-		int s = keys.indexOf("Days");
-		return s;	
+		return keys.indexOf("Days");
 	}
-	//画像のインデックスを応答する。
+	
+	/**
+	 * 画像のインデックスを応答する。
+	 * @return index
+	 */
 	public int indexOfImage(){
-		int s = keys.indexOf("Image");
-		return s;
+		return keys.indexOf("Image");
 	}
-	//ふりがなのインデックスを応答する。
+	/**
+	 * ふりがなのインデックスを応答する。
+	 * @return index
+	 */
 	public int indexOfKana(){
-		int s = keys.indexOf("Kana");
-		return s;
+		return names.indexOf("Kana");
 	}
-	//氏名のインデックスを応答する
+	/**
+	 * 氏名のインデックスを応答する。
+	 * @return index
+	 */
 	public int indexOfName(){
-		int s = keys.indexOf("Names");
-		return s;
+		return names.indexOf("Name");
 	}
-	//番号のインデックスを応答する。
+	
+	/**
+	 * 番号のインデックスを応答する。
+	 * @return index
+	 */
 	public int indexOfNo(){
-		int s = keys.indexOf("No");
-		return s;
+		return keys.indexOf("No");
 	}
-	//代のインデックスを応答する。
+	
+	/**
+	 * 代のインデックスを応答する。
+	 * @return index
+	 */
 	public int indexOfOrder(){
-		int s = keys.indexOf("Order");
-		return s;
+		return keys.indexOf("Order");
 	}
-	//政党のインデックスを応答する。
+	
+	/**
+	 * 政党のインデックスを応答する。
+	 * @return index
+	 */
 	public int indexOfParty(){
-		int s = keys.indexOf("Party");
-		return s;
+		
+		return keys.indexOf("Party");
+
 	}
-	//在位期間のインデックスを応答する。
+	
+	/**
+	 * 在位期間のインデックスを応答する。
+	 * @return index
+	 */
 	public int indexOfPeriod(){
-		int s = keys.indexOf("Period");
-		return s;
+		
+		return keys.indexOf("Period");
+
 	}
-	//出身地のインデックスを応答する。
+	
+	/**
+	 * 出身地のインデックスを応答する。
+	 * @return index
+	 */
 	public int indexOfPlace(){
-		int s = keys.indexOf("Place");
-		return s;
+		
+		return keys.indexOf("Place");
+
 	}
-	//出身校のインデックスを応答する。
+	
+	/**
+	 * 出身校のインデックスを応答する。
+	 * @return index
+	 */
 	public int indexOfSchool(){
-		int s = keys.indexOf("School");
-		return s;
+		
+		return keys.indexOf("School");
+
 	}
-	//サムネイル画像のインデックスを応答する。
+	
+	/**
+	 * 画像のインデックスを応答する。
+	 * @return index
+	 */
 	public int indexOfThumbnail(){
-		int s = keys.indexOf("Thumbnail");
-		return s;
+		
+		return keys.indexOf("Thumbnail");
 	}
-	//指定されたインデックスに対応するキーを応答する。
+	
+	/**
+	 * 指定されたインデックスに対応するキーを応答する。
+	 * @param index
+	 * @return key
+	 */
 	protected String keyAt(int index){
-		String key = keys.get(index);
-		return key;
+		
+		return keys.get(index);
 	}
-	//キー群を応答する。
+	
+	/**
+	 * キー群を応答する。
+	 * @return this.keys
+	 */
 	public ArrayList<String> keys(){
-		return keys;
+		return this.keys;
 	}
-	//指定されたインデックスに対応する名前を応答する。
+	
+	/**
+	 * 指定されたインデックスに対応する名前を応答する。
+	 * @param index
+	 * @return name
+	 */
 	protected String nameAt(int index){
 		String name = names.get(index);
 		return name;
 	}
-	//名前群を応答する。
+	
+	/**
+	 * 名前群を応答する。
+	 * @return this.name
+	 */
 	public ArrayList<String> names(){
-		return names;
+		return this.names;
 	}
-	//名前群を設定する。
+	
+	/**
+	 * 名前群を設定する。
+	 * @param aCollection
+	 */
 	public void names(ArrayList<String> aCollection){
-		names = aCollection;
-		return;
-	}
-	//属性リストの長さを応答する。
+		this.names = aCollection;
+    }
+	
+	/**
+	 * 属性リストの長さを応答する。
+	 * @return length
+	 */
 	public int size(){
-		int size = keys.size();
-		return size;
+		int length = keys.size();
+		return length;
 	}
-	//自分自身を文字列にして、それを応答する。
+	
+
+	/**
+	 * 自分自身を文字列にして、それを応答する。
+	 * @return aString
+	 */
 	public String toString(){
-		StringBuffer aBuffer = new StringBuffer();
-		Class aClass = this.getClass();
-		aBuffer.append("[keys=");
-		aBuffer.append(keys);
-		aBuffer.append("]");
-		return aBuffer.toString();
+		
+		return "a";
 	}
 }
