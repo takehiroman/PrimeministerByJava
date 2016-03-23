@@ -1,7 +1,8 @@
 PrimeministerByJava
+総理大臣課題Java
 ===================
 実行方法
-MacBook-Air-2:PrimeministerByJava-master takehiro$ make
+$ make
 
-MacBook-Air-2:PrimeministerByJava-master takehiro$ java -jar primeministers.jar
+$ java -jar primeministers.jar
 
